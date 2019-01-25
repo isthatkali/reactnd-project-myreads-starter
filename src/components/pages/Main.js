@@ -22,10 +22,13 @@ class Main extends React.Component {
   }
   
   // method to update book's shelf
-  updateShelf(book, shelf) {
+  updateShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
     .then(resp => {
       book.shelf = shelf;
+      this.setState(state => ({
+        books: state.books.filter(b => b.id !== book.id).concat({book})
+      }));
     });
   }
 
@@ -37,13 +40,13 @@ class Main extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Shelf name="Currently Reading" books={this.state.books.filter(b => b.shelf === "currentlyReading")}/>
-            <Shelf name="Want To Read" books={this.state.books.filter(b => b.shelf === "wantToRead")}/>
-            <Shelf name="Read" books={this.state.books.filter(b => b.shelf === "read")}/>
+            <Shelf updateShelf={this.updateShelf} name="Currently Reading" books={this.state.books.filter(b => b.shelf === "currentlyReading")}/>
+            <Shelf updateShelf={this.updateShelf} name="Want To Read" books={this.state.books.filter(b => b.shelf === "wantToRead")}/>
+            <Shelf updateShelf={this.updateShelf} name="Read" books={this.state.books.filter(b => b.shelf === "read")}/>
           </div>
         </div>
         <div className="open-search">
-          <Link to='Search'>Add a book</Link>
+          <Link to='/Search'><button>Add a book</button></Link>
         </div>
       </div>
     );
