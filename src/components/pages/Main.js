@@ -20,6 +20,14 @@ class Main extends React.Component {
       this.setState({ books: resp});
     });
   }
+  
+  // method to update book's shelf
+  updateShelf(book, shelf) {
+    BooksAPI.update(book, shelf)
+    .then(resp => {
+      book.shelf = shelf;
+    });
+  }
 
   render() {
     return(

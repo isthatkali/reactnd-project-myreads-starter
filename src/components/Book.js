@@ -15,9 +15,13 @@ class Book extends React.Component {
 
   // method to update book's shelf
   updateShelf(book, shelf) {
-    BooksAPI.update(book, shelf)
+    BooksAPI.update(this.state.book, shelf)
     .then(resp => {
-      book.shelf = shelf;
+      this.setState(state => {
+        let copy = state.book;
+        copy.shelf = shelf;
+        this.setState({ book: copy });
+      });
     });
   }
 
@@ -28,13 +32,15 @@ class Book extends React.Component {
           <div className="book-top">
             <div className="book-cover"
               style={{ 
-                width: 128,
-                height: 193,
+                width: 128, height: 193,
                 backgroundImage: `url(${this.state.book.imageLinks ? this.state.book.imageLinks.thumbnail : ''})`
               }}
             />
             <div className="book-shelf-changer">
-              <select value={this.state.book.shelf || "None"}>
+              <select
+                value={this.state.book.shelf || "None"}
+                onChange={(e) => {this.updateShelf(e.target.value)}}>
+
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
