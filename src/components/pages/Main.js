@@ -40,13 +40,21 @@ class Main extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Shelf updateShelf={this.updateShelf} name="Currently Reading" books={this.state.books.filter(b => b.shelf === "currentlyReading")}/>
-            <Shelf updateShelf={this.updateShelf} name="Want To Read" books={this.state.books.filter(b => b.shelf === "wantToRead")}/>
-            <Shelf updateShelf={this.updateShelf} name="Read" books={this.state.books.filter(b => b.shelf === "read")}/>
+            <Shelf updateShelf={this.updateShelf}
+              name="Currently Reading"
+              books={this.state.books.filter(b => b.shelf === "currentlyReading")}/>
+            <Shelf updateShelf={this.updateShelf}
+              name="Want To Read"
+              books={this.state.books.filter(b => b.shelf === "wantToRead")}/>
+            <Shelf updateShelf={this.updateShelf}
+              name="Read"
+              books={this.state.books.filter(b => b.shelf === "read")}/>
           </div>
         </div>
         <div className="open-search">
-          <Link to='/Search'><button>Add a book</button></Link>
+          <Link to='/Search'>
+            <button>Add a book</button>
+          </Link>
         </div>
       </div>
     );
